@@ -16,7 +16,7 @@ Este script implementa o algoritmo Smith Waterman e permite que você alinhe dua
 
 3. Salve o arquivo `input.txt`.
 
-4. Abra um terminal e navegue até o diretório onde o script `smith_waterman.py` está localizado.
+4. Abra um terminal e navegue até o diretório onde o script `main.py` está localizado.
 
 5. Execute o script Python usando o seguinte comando:
 
