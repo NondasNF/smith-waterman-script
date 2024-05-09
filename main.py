@@ -123,4 +123,17 @@ print("------------------------------------------------------------------")
 
 print(backtrace[0])
 print(backtrace[1])
-
+print("Número: 11")
+print("Nome: Epaminondas Noronha Feitosa")
+with open('input.txt', 'a') as file:
+    file.write("================================================================================\n")
+    for linha in tabela[::-1]:
+        file.write(' '.join(map(str, linha)) + '\n')
+    file.write("================================================================================\n")
+    file.write("------------------------------------------------------------------\n")
+    file.write("Alinhamento ** Score: " + str(score) + " ** Match: " + str(match) + " ** Missmatch: " + str(missmatch) + " ** Gap: " + str(gap) + "\n")
+    file.write("------------------------------------------------------------------\n")
+    file.write(backtrace[0] + "\n")
+    file.write(backtrace[1] + "\n")
+    file.write("Número: 11\n")
+    file.write("Nome: Epaminondas Noronha Feitosa\n")
