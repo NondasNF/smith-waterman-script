@@ -2,6 +2,13 @@ match = 1
 missmatch = -1
 gap = -2
 
+def get_biggest_score(tabela):
+    maior = 0
+    for linha in tabela:
+        for coluna in linha:
+            if int(coluna) > int(maior):
+                maior = int(coluna)
+    return maior
 
 def get_formated_matriz(entrada1, entrada2, tabela):
     tabela2 = [[0] * (len(entrada2) + 2) for _ in range(len(entrada1) + 2)]
@@ -64,7 +71,6 @@ def get_backtrace(tabela, entrada1, entrada2):
     aux_linha, aux_coluna = linha, coluna
     codon1 = ""
     codon2 = ""
-    score = 0
     current_value = tabela[aux_linha][aux_coluna]
     while 1:
         if aux_coluna == 0 and aux_linha == 0: 
@@ -76,26 +82,23 @@ def get_backtrace(tabela, entrada1, entrada2):
         direita = tabela[aux_linha][aux_coluna-1] + gap
         cima = tabela[aux_linha-1][aux_coluna] + gap
         if current_value == diagonal:
-            score += get_match(letra_vertical, letra_horizontal)
             current_value = tabela[aux_linha-1][aux_coluna-1]
             codon1 = codon1 + letra_horizontal
             codon2 = codon2 + letra_vertical
             if aux_coluna > 0: aux_coluna -= 1
             if aux_linha > 0: aux_linha -= 1
         elif current_value == direita:
-            score += gap
             current_value = tabela[aux_linha][aux_coluna-1]
             codon1 = codon1 + "-"
             codon2 = codon2 + letra_vertical
             if aux_coluna > 0: aux_coluna -= 1
         elif current_value == cima:
-            score += gap
             current_value= tabela[aux_linha-1][aux_coluna]
             codon1 = codon1 + letra_horizontal
             codon2 = codon2 + "-"
             if aux_linha > 0: aux_linha -= 1
 
-    return [codon1[::-1], codon2[::-1]], score
+    return [codon1[::-1], codon2[::-1]]
 
 entrada1= ""
 entrada2= ""
@@ -110,20 +113,21 @@ with open('input.txt', 'r') as file:
     match = int(match)
 
 tabela = get_smith_waterman(entrada1, entrada2)
-backtrace, score = get_backtrace(tabela, entrada1, entrada2)
+backtrace = get_backtrace(tabela, entrada1, entrada2)
+maiorscore = get_biggest_score(tabela)
 tabela = get_formated_matriz(entrada1, entrada2, tabela)
-
 print("================================================================================")
 for linha in tabela[::-1]:
     print(linha)
 print("================================================================================")
 print("------------------------------------------------------------------")
-print("Alinhamento ** Score: ", score, "** Match: ", match, "** Missmatch: ", missmatch, "** Gap: ", gap)
-print("------------------------------------------------------------------")
-
+print("Alinhamento **")
 print(backtrace[0])
 print(backtrace[1])
-print("Número: 11")
+print("------------------------------------------------------------------")
+print("Maior Score: ", maiorscore, "** Match: ", match, "** Missmatch: ", missmatch, "** Gap: ", gap)
+print("================================================================================")
+print("Número: 12")
 print("Nome: Epaminondas Noronha Feitosa")
 with open('input.txt', 'a') as file:
     file.write("================================================================================\n")
@@ -131,9 +135,11 @@ with open('input.txt', 'a') as file:
         file.write(' '.join(map(str, linha)) + '\n')
     file.write("================================================================================\n")
     file.write("------------------------------------------------------------------\n")
-    file.write("Alinhamento ** Score: " + str(score) + " ** Match: " + str(match) + " ** Missmatch: " + str(missmatch) + " ** Gap: " + str(gap) + "\n")
-    file.write("------------------------------------------------------------------\n")
+    file.write("Alinhamento **")
     file.write(backtrace[0] + "\n")
     file.write(backtrace[1] + "\n")
+    file.write("------------------------------------------------------------------\n")
+    file.write("Maior score: " + str(maiorscore) + " ** Match: " + str(match) + " ** Missmatch: " + str(missmatch) + " ** Gap: " + str(gap) + "\n")
+    file.write("================================================================================\n")
     file.write("Número: 12\n")
     file.write("Nome: Epaminondas Noronha Feitosa\n")
