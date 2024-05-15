@@ -135,5 +135,5 @@ with open('input.txt', 'a') as file:
     file.write("------------------------------------------------------------------\n")
     file.write(backtrace[0] + "\n")
     file.write(backtrace[1] + "\n")
-    file.write("Número: 11\n")
+    file.write("Número: 12\n")
     file.write("Nome: Epaminondas Noronha Feitosa\n")
